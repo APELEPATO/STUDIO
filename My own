@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MK677</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Basic Setup */
+        body {
+            margin: 0;
+            font-family: 'Roboto Mono', monospace;
+            background-color: #121212; /* Dark background */
+            color: #E0E0E0; /* Light text */
+            overflow: hidden; /* Hide scrollbars initially */
+        }
+
+        /* Splash Screen (MK677 Animation) */
+        #splash-screen {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #121212;
+            z-index: 100;
+            transition: opacity 1s ease-out;
+        }
+
+        .brand-name {
+            font-size: 8vw; /* Responsive font size */
+            font-weight: 700;
+            letter-spacing: 5px;
+        }
+
+        /* Animation for each letter/number of MK677 */
+        .brand-name span {
+            opacity: 0;
+            display: inline-block;
+            animation: fadeInUp 0.5s forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Main Content (Contact Details) */
+        #main-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            opacity: 0; /* Initially hidden */
+            transition: opacity 1s ease-in;
+        }
+
+        #main-content.visible {
+            opacity: 1;
+        }
+
+        .contact-card {
+            background-color: #1E1E1E;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            text-align: left;
+        }
+
+        .contact-card h2 {
+            margin-top: 0;
+            border-bottom: 2px solid #00AFFF; /* A nice accent color */
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .contact-card ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        /* Animation for each contact detail line */
+        .contact-card li {
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            opacity: 0;
+            animation: fadeInDetail 0.6s forwards;
+        }
+        
+        .contact-card li strong {
+            color: #00AFFF; /* Accent color for labels */
+        }
+
+        @keyframes fadeInDetail {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="splash-screen">
+        <h1 class="brand-name" id="brand-name-animated"></h1>
+    </div>
+
+    <div id="main-content">
+        <div class="contact-card">
+            <h2>Adithyan</h2>
+            <ul>
+                <li><strong>Email:</strong> adithyankumar2@gmail.com</li>
+                <li><strong>Phone:</strong> 9207042513</li>
+                <li><strong>Phone:</strong> 8075904754</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const brandName = "MK677";
+            const brandElement = document.getElementById('brand-name-animated');
+            const splashScreen = document.getElementById('splash-screen');
+            const mainContent = document.getElementById('main-content');
+            
+            // --- MK677 Animation Logic ---
+            // Wrap each character in a <span> to animate them individually
+            brandElement.innerHTML = brandName.split('').map((char, index) => 
+                `<span style="animation-delay: ${index * 0.2}s;">${char}</span>`
+            ).join('');
+
+            // --- Transition Logic ---
+            // After the intro animation, hide the splash screen and show the main content
+            const totalAnimationTime = brandName.length * 200 + 1500; // Total time in milliseconds
+
+            setTimeout(() => {
+                splashScreen.style.opacity = '0'; // Fade out the splash screen
+                
+                // After the fade out is complete, show the main content
+                setTimeout(() => {
+                    splashScreen.style.display = 'none'; // Hide it completely
+                    mainContent.classList.add('visible');
+                    
+                    // --- Contact Details Animation Logic ---
+                    const contactItems = document.querySelectorAll('.contact-card li');
+                    contactItems.forEach((item, index) => {
+                        // Stagger the animation for each contact item
+                        item.style.animationDelay = `${index * 0.3}s`;
+                    });
+
+                }, 1000); // This delay should match the transition duration of the splash screen
+
+            }, totalAnimationTime);
+        });
+    </script>
+
+</body>
+</html>
